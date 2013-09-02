@@ -20,5 +20,5 @@ total = 4*comb(hom+het+rec, 2)
 # The number of potential children who display the recessive gene.
 totalrec = 4*comb(rec,2) + 2*rec*het + 1*comb(het,2)
 
-# Using the complementary even to find the probability of a dominant gene expression.
+# Using the complementary event to find the probability of a dominant gene expression.
 print 1 - totalrec/total
