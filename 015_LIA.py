@@ -4,7 +4,7 @@ A solution to a ROSALIND bioinformatics problem.
 
 Problem Title: Independent Alleles
 Rosalind ID: LIA
-Rosalind #: 05
+Rosalind #: 015
 URL: http://rosalind.info/problems/lia/
 '''
 
