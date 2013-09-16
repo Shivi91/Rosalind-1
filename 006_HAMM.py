@@ -8,9 +8,8 @@ Rosalind #: 006
 URL: http://rosalind.info/problems/hamm/
 '''
 
-inpfile = open('data/rosalind_hamm.txt')
-lines = inpfile.readlines()
-inpfile.close()
+with open('data/rosalind_hamm.txt') as input_data:
+	lines = input_data.readlines()
 
 s = lines[0].rstrip('\n')
 t = lines[1]
