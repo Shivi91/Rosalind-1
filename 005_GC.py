@@ -31,6 +31,5 @@ for index, dna_seq in enumerate(dna_list):
 print highest_GC_name, '\n', highest_GC
 
 # Write the solution to a text file.
-output_file = open('output/005_GC.txt', 'w')
-output_file.writelines([str(highest_GC_name),'\n', str(highest_GC)])
-output_file.close()
+with open('output/005_GC.txt', 'w') as output_data:
+	output_data.writelines([str(highest_GC_name),'\n', str(highest_GC)])
