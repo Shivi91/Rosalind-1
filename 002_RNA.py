@@ -8,15 +8,9 @@ Rosalind #: 002
 URL: http://rosalind.info/problems/rna/
 '''
 
-input_file = open('data/rosalind_rna.txt')
-dna = input_file.read().strip()
-input_file.close()
+with open('data/rosalind_rna.txt') as input_data:
+	dna = input_data.read().strip()
 
-
-output_file = open('output/002_RNA.txt', 'w')
-output_file.write(dna.replace('T', 'U'))
-print dna.replace('T', 'U')
-output_file.close()
-
-
-
+with open('output/002_RNA.txt', 'w') as output_data:
+	output_data.write(dna.replace('T', 'U'))
+	print dna.replace('T', 'U')
