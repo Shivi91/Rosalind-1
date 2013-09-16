@@ -8,9 +8,8 @@ Rosalind #: 001
 URL: http://rosalind.info/problems/dna/
 '''
 
-input_file = open('data/rosalind_dna.txt')
-dna = input_file.read()
-input_file.close()
+with open('data/rosalind_dna.txt') as input_data:
+	dna = input_data.read()
 
 nuc_count = []
 for nucleotide in ['A', 'C', 'G', 'T']:
