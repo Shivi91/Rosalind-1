@@ -10,16 +10,13 @@ URL: http://rosalind.info/problems/revc/
 
 from string import maketrans 
 
-input_file = open('data/rosalind_revc.txt')
-dna = input_file.read()
-input_file.close()
+with open('data/rosalind_revc.txt') as input_data:
+	dna = input_data.read()
 
 nucleotide = 'ATCG'
 complement = 'TAGC'
 transtab = maketrans(nucleotide, complement)
-
 dna_reverse_complement = dna.translate(transtab)[::-1].lstrip()
 
-output_file = open('output/003_REVC.txt', 'w')
-output_file.write(dna_reverse_complement)
-output_file.close()
+with open('output/003_REVC.txt', 'w') as output_data:
+	output_data.write(dna_reverse_complement)
