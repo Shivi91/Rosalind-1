@@ -8,11 +8,10 @@ Rosalind #: 009
 URL: http://rosalind.info/problems/subs/
 '''
 
-file1 = open('data/rosalind_subs.txt')
-s,t = file1.readlines()
-s = s.rstrip()
-t = t.rstrip()
-file1.close()
+with open('data/rosalind_subs.txt') as input_data:
+	s,t = input_data.readlines()
+	s = s.rstrip()
+	t = t.rstrip()
 
 locations = ''
 for i in range(0, len(s)-len(t)+1):
