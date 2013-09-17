@@ -8,9 +8,8 @@ Rosalind #: 013
 URL: http://rosalind.info/problems/iev/
 '''
 
-file1 = open('data/rosalind_iev.txt')
-s = file1.read().split()
-file1.close()
+with open('data/rosalind_iev.txt') as input_data:
+	s = input_data.read().split()
 
 # Probabilities of Child Dominant Genotype
 # ----------------------------------------
@@ -20,7 +19,6 @@ file1.close()
 # s[3]: Aa-Aa -> 75%
 # s[4]: Aa-aa -> 50%
 # s[5]: aa-aa -> 0%
-
 
 p_list = [1, 1, 1, 0.75, 0.5, 0]
 EV_list =[]
