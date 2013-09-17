@@ -10,9 +10,8 @@ URL: http://rosalind.info/problems/prob/
 
 from math import log10
 
-file1 = open('data/rosalind_prob.txt')
-dna, gc_content = file1.readlines()
-file1.close()
+with open('data/rosalind_prob.txt') as input_data:
+	dna, gc_content = input_data.readlines()
 
 gc_content = map(float, gc_content.split())
 
@@ -33,6 +32,5 @@ for gc_value in gc_content:
 	# Append as a string since we'll use a string join later.
 	gc_prob.append(str(log_prob))
 
-output_file = open('output/028_PROB.txt', 'w')
-output_file.write(' '.join(gc_prob))
-output_file.close()
+with open('output/028_PROB.txt', 'w') as output_file:
+	output_file.write(' '.join(gc_prob))
