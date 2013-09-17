@@ -10,9 +10,8 @@ URL: http://rosalind.info/problems/lia/
 
 from scipy.misc import comb
 
-file1 = open('data/rosalind_lia.txt')
-k, N = map(int, file1.read().split())
-file1.close()
+with open('data/rosalind_lia.txt') as input_data:
+	k, N = map(int, input_data.read().split())
 
 prob = 0
 for i in range(N, 2**k + 1):
