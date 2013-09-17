@@ -26,6 +26,5 @@ for protein in protein_str:
 
 # Print and save the weight.
 print monoisotopic_weight
-output_file = open('output/020_PRTM.txt', 'w')
-output_file.write(str(monoisotopic_weight))
-output_file.close()
+with open('output/020_PRTM.txt', 'w') as output_data:
+	output_data.write(str(monoisotopic_weight))
