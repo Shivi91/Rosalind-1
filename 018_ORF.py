@@ -8,11 +8,11 @@ Rosalind #: 018
 URL: http://rosalind.info/problems/orf/
 '''
 
-from scripts import ReadFASTA, DNA_to_RNA, ReverseComplement, RNA_to_Protein_Dict
+from scripts import ReadFASTA, DNA_to_RNA, ReverseComplementRNA, RNA_to_Protein_Dict
 
 dna = ReadFASTA('data/rosalind_orf.txt')
 rna_list = [DNA_to_RNA(dna[0][1])]
-rna_list.append(ReverseComplement(rna_list[0]))
+rna_list.append(ReverseComplementRNA(rna_list[0]))
 rna_dict = RNA_to_Protein_Dict()
 
 # Use a set since we want to return distinct protein.
