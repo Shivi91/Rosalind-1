@@ -14,20 +14,18 @@ def RNA_to_DNA(rna):
 	return rna.replace('U', 'T')
 
 
-def ReverseComplement(nucleic_acid):
-	'''Returns the reverse complement of a given DNA or RNA strand.'''
-
-	# Determine if we have DNA or RNA, and create the appropriate translation.
-	if ('T' in nucleic_acid) and ('U' not in nucleic_acid):
-		nucleotide = 'ATCG'
-		complement = 'TAGC'
-	elif ('U' in nucleic_acid) and ('T' not in nucleic_acid):
-		nucleotide = 'AUCG'
-		complement = 'UAGC'
-	else:
-		return 'Error: Not DNA or RNA.'
-
+def ReverseComplementDNA(nucleic_acid):
+	'''Returns the reverse complement of a given DNA strand.'''
+	nucleotide = 'ATCG'
+	complement = 'TAGC'
 	transtab = maketrans(nucleotide, complement)
 	
-	# Return the reverse complement.
+	return nucleic_acid.translate(transtab)[::-1].lstrip()
+
+def ReverseComplementRNA(nucleic_acid):
+	'''Returns the reverse complement of a given RNA strand.'''
+	nucleotide = 'AUCG'
+	complement = 'UAGC'
+	transtab = maketrans(nucleotide, complement)
+	
 	return nucleic_acid.translate(transtab)[::-1].lstrip()
