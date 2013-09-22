@@ -8,32 +8,31 @@ Rosalind #: 018
 URL: http://rosalind.info/problems/orf/
 '''
 
-from scripts import ReadFASTA, DNA_to_RNA, ReverseComplementRNA, RNA_to_Protein_Dict
+from scripts import ReadFASTA, ReverseComplementDNA, ProteinDictDNA
 
-dna = ReadFASTA('data/rosalind_orf.txt')
-rna_list = [DNA_to_RNA(dna[0][1])]
-rna_list.append(ReverseComplementRNA(rna_list[0]))
-rna_dict = RNA_to_Protein_Dict()
+dna_list = [ReadFASTA('data/rosalind_orf.txt')[0][1]]
+dna_list.append(ReverseComplementDNA(dna_list[0]))
+dna_dict = ProteinDictDNA()
 
 # Use a set since we want to return distinct protein.
 # Sets keep track of distinct elements without us needing to worry about adding duplicates.
 protein_orf = set()
-for rna in rna_list:
-	for i in range(len(rna)-2):
+for dna in dna_list:
+	for i in range(len(dna)-2):
 		# Check for the Start codon.
-		if rna[i:i+3] == 'AUG':
+		if dna[i:i+3] == 'ATG':
 			# Use a new index since we'll want to return to the ith position of the strand in case there are multiple start codons in a row.
 			j = i
 			current_protein = ''
-			# Continue, if necessary, until we hit the end of the rna sequence.
-			while j+3 < len(rna)-1:
+			# Continue, if necessary, until we hit the end of the DNA sequence.
+			while j+3 < len(dna)-1:
 				# Add the protein and break if we hit a Stop codon.
-				if rna_dict[rna[j:j+3]] == 'Stop':
+				if dna_dict[dna[j:j+3]] == 'Stop':
 					protein_orf.add(current_protein)
 					break
 				# Otherwise, add to the current protein.
 				else:
-					current_protein += rna_dict[rna[j:j+3]]
+					current_protein += dna_dict[dna[j:j+3]]
 				j += 3
 
 # Convert protein from a set to list of strings to allow output to be written in the correct form more efficiently.
