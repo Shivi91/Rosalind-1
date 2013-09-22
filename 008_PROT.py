@@ -8,13 +8,13 @@ Rosalind #: 008
 URL: http://rosalind.info/problems/prot/
 '''
 
-from scripts import RNA_to_Protein_Dict
+from scripts import ProteinDictRNA
 
 with open('data/rosalind_prot.txt') as input_data:
 	s = input_data.read().rstrip('\n')
 
 # Dictionary translating RNA to Protein
-rna_dict = RNA_to_Protein_Dict()
+rna_dict = ProteinDictRNA()
 
 s_protein = ''
 for i in range(0,len(s),3):
