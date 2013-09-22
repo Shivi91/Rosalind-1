@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 '''A ROSALIND bioinformatics script to create RNA and DNA to Protein dictionary.'''
 
-
-
 def ProteinDictDNA():
-	'''Returns a dictionary that translates DNA to Protein'''
+	'''Returns a dictionary that translates DNA to Protein.'''
 	# Get the raw codon table.
 	dna2protein = CodonTableDNA()
 
@@ -17,7 +15,7 @@ def ProteinDictDNA():
 
 
 def ProteinDictRNA():
-	'''Returns a dictionary that translates RNA to Protein'''
+	'''Returns a dictionary that translates RNA to Protein.'''
 	# Get the raw codon table.
 	rna2protein = CodonTableRNA()
 
@@ -27,6 +25,37 @@ def ProteinDictRNA():
 	    rna_dict[translation[0]] = translation[1]
 
 	return rna_dict
+
+
+def ProteinWeightDict():
+	'''Returns a dictionary that translates Protein to Monoisotopic Mass.'''
+	table ='''A   71.03711
+	C   103.00919
+	D   115.02694
+	E   129.04259
+	F   147.06841
+	G   57.02146
+	H   137.05891
+	I   113.08406
+	K   128.09496
+	L   113.08406
+	M   131.04049
+	N   114.04293
+	P   97.05276
+	Q   128.05858
+	R   156.10111
+	S   87.03203
+	T   101.04768
+	V   99.06841
+	W   186.07931
+	Y   163.06333''' 
+
+	protein_weight_dict = dict()
+
+	for protein in table.split('\n'):
+		protein_weight_dict[protein.strip('\t').split()[0]] = float(protein.strip('\t').split()[1])
+
+	return protein_weight_dict
 
 
 def CodonTableDNA():
@@ -101,7 +130,6 @@ def CodonTableDNA():
 		table[index] = item.strip().split()
 
 	return table
-
 
 
 def CodonTableRNA():
