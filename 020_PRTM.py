@@ -8,7 +8,7 @@ Rosalind #: 020
 URL: http://rosalind.info/problems/prtm/
 '''
 
-from scripts import Protein_Weight_Dict
+from scripts import ProteinWeightDict
 
 # Load the data.
 file1 = open('data/rosalind_prtm.txt')
@@ -16,7 +16,7 @@ protein_str = file1.read().strip()
 file1.close()
 
 # Load the dictionary that translates protein to monoisotipic weight.
-weight_dict = Protein_Weight_Dict()
+weight_dict = ProteinWeightDict()
 
 # Calculate the weight protein by protein.
 monoisotopic_weight = 0
