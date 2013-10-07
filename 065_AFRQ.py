@@ -10,7 +10,7 @@ URL: http://rosalind.info/problems/afrq/
 
 # This solution is more mathematics than programming.
 # 
-# Let x = proportion heterozygous, y = proportion homozygous recessive.
+# Let x = proportion homozygous recessive, y = proportion heterozygous.
 # We want the proportion of the population carrying at least one recessive gene, so the answer is x + y.
 # 
 # Assume that the allele frequency is stable, meaning that it remains the same after mating.
