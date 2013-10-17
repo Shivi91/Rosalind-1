@@ -29,3 +29,9 @@ def ReverseComplementRNA(nucleic_acid):
 	transtab = maketrans(nucleotide, complement)
 	
 	return nucleic_acid.translate(transtab)[::-1].lstrip()
+
+def HammingDistance(seq1, seq2):
+    'Return the Hamming distance between equal-length sequences.'
+    if len(seq1) != len(seq2):
+        raise ValueError('Undefined for sequences of unequal length.')
+    return sum(ch1 != ch2 for ch1, ch2 in zip(seq1, seq2))
