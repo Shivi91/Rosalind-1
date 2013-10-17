@@ -9,10 +9,7 @@ URL: http://rosalind.info/problems/hamm/
 '''
 
 with open('data/rosalind_hamm.txt') as input_data:
-	lines = input_data.readlines()
-
-s = lines[0].rstrip('\n')
-t = lines[1]
+	s, t = [line.rstrip('\n') for line in input_data.readlines()]
 
 count = 0
 for index, dna in enumerate(s):
@@ -20,3 +17,5 @@ for index, dna in enumerate(s):
         count += 1
 
 print count
+with open('output/006_HAMM.txt', 'w') as output_data:
+	output_data.write(str(count))
