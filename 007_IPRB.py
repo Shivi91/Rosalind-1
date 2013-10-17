@@ -21,3 +21,6 @@ totalrec = 4*comb(rec,2) + 2*rec*het + 1*comb(het,2)
 
 # Using the complementary event to find the probability of a dominant gene expression.
 print 1 - totalrec/total
+
+with open('output/007_IRPB.txt', 'w') as output_data:
+	output_data.write(str(1 - totalrec/total))
