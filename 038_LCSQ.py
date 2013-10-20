@@ -13,7 +13,6 @@ from scripts import ReadFASTA
 
 # Read FASTA DNA sequences.
 dna1, dna2 = [fasta[1] for fasta in ReadFASTA('data/rosalind_lcsq.txt')]
-# dna1, dna2 = [fasta[1] for fasta in ReadFASTA('D:/test.txt')]
 
 # Compute each entry of M.
 M = zeros((len(dna1)+1,len(dna2)+1))
