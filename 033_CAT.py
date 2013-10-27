@@ -12,8 +12,6 @@ from scripts import ReadFASTA
 
 def Noncrossing(rna):
 	'''Returns the number of noncrossing bonding graphs for a given RNA sequence.'''
-	global noncross_dict
-	global matchings
 	if len(rna) <= 2:
 		# We only send valid rna matchings, so this return is ok.
 		return 1
