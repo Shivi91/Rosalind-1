@@ -21,7 +21,6 @@ def LongestSubstring(string_list):
 			elif CheckSubstring(string_list[0][start_index:end_index], string_list):
 				longest =  string_list[0][start_index:end_index]
 
-	print longest
 	return longest
 
 def CheckSubstring(find_string, string_list):
@@ -39,5 +38,6 @@ if __name__ == '__main__':
     	dna.append(fasta[1])
 
     lcsm = LongestSubstring(dna)
+    print lcsm
     with open('output/014_LCSM.txt', 'w') as output_data:
     	output_data.write(lcsm)
