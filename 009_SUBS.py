@@ -13,9 +13,11 @@ with open('data/rosalind_subs.txt') as input_data:
 	s = s.rstrip()
 	t = t.rstrip()
 
-locations = ''
+locations = []
 for i in range(0, len(s)-len(t)+1):
     if s[i:i+len(t)] == t:
-        locations += str(i+1)+' '
+        locations.append(str(i+1))
 
-print locations.rstrip()
+print ' '.join(locations)
+with open('output/009_SUBS.txt', 'w') as output_data:
+	output_data.write(' '.join(locations))
