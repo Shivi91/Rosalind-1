@@ -32,15 +32,12 @@ for i in range(0,len(dna_list[0][1])):
     consensus += to_snp[maxval[0]]
 
 # Format the count properly
-strs = ['A: ', 'C: ', 'G: ', 'T: ']
+consensus = [consensus, 'A:', 'C:', 'G:', 'T:']
 for index, col in enumerate(M):
     for val in col:
-        strs[index] += str(val)+' '
+        consensus[index+1] += ' '+str(val)
 
 # Print and write the output
+print '\n'.join(consensus)
 with open('output/010_CONS.txt', 'w') as output_data: 
-    output_data.write(consensus)
-    print consensus
-    for out in strs:
-        output_data.write('\n'+out.rstrip())
-        print out.rstrip()
+    output_data.write('\n'.join(consensus))
