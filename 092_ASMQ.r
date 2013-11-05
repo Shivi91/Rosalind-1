@@ -17,7 +17,7 @@ for(i in 2:length(L) ){
 }
 
 minL <- c(ceiling(0.5*sum(lengths)),ceiling(0.75*sum(lengths)))
-N_values <- vector(mode='numeric', length=length(2))
+N_values <- vector(mode='numeric', length=2)
 for (i in 1:2){
     N_values[i] = L[match(min(N[N>minL[i]]),N)]
 }
