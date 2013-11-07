@@ -2,14 +2,16 @@
 '''A ROSALIND bioinformatics script containing useful data structures.'''
 
 class SuffixTree(object):
-	'''Suffix Tree Class'''
-	def __init__(self):
+	'''Creates a suffix tree for the provided word.'''
+	def __init__(self, word):
+		'''Initializes the suffix tree.'''
 		self.nodes = [self.Node(None,0)]
 		self.edges = dict()
-
+		if type(word) == str:
+			self.addWord(word)
 
 	class Node(object):
-	    '''Suffix Tree Node'''
+	    '''Suffix tree node class.'''
 	    def __init__(self, parent, number):
 	        self.parent = parent
 	        self.number = number
@@ -26,55 +28,56 @@ class SuffixTree(object):
 
 
 	def addWord(self, word):
-		'''Add a word to the suffix tree'''
+		'''Add a word to the suffix tree.'''
 		# Check to make sure word ends in '$'.
 		if word[-1] != '$':
 			word += '$'
+		self.word = word
+		self.n = len(self.word)
 
-		for suff in [word[i:] for i in xrange(len(word))]:
-			parent_node, edge_name, overlap = self.insertPosition(suff, self.nodes[0])
+		for i in xrange(self.n):
+			parent_node, edge_start, overlap = self.insertPosition(i,self.nodes[0])
 
 			if overlap:
-				previous_edge = self.edges[(parent_node.parent.number, parent_node.number)]
+				p_edge_start, p_edge_end = self.edges[(parent_node.parent.number, parent_node.number)]
 				
-				# Get the prefix overlap
-				pre_overlap = ''
-				i = 0
-				while edge_name[i] == previous_edge[i]:
-					pre_overlap += edge_name[i]
-					i+=1
-
-				# CHANGE CHILDREN HERER???????
+				# Get the edge to insert
+				insert_len = 0
+				while word[edge_start:edge_start+insert_len] == word[p_edge_start:p_edge_start+insert_len]:
+					insert_len += 1
 
 				# Create a new node for insertion
 				new_node = self.Node(parent_node.parent,len(self.nodes))
 				new_node.addChild(parent_node)
-				self.addNode(parent_node.parent, pre_overlap, new_node)
+				self.addNode(parent_node.parent, p_edge_start, p_edge_start + insert_len-1, new_node)
 
 				# Update the parent node since a new node is inserted above it
 				del self.edges[(parent_node.parent.number, parent_node.number)]
 				parent_node.parent.removeChild(parent_node)
 				parent_node.updateParent(new_node)
-				self.edges[(parent_node.parent.number, parent_node.number)] = previous_edge[len(pre_overlap):]
+				self.edges[(parent_node.parent.number, parent_node.number)] = [p_edge_start + insert_len-1, p_edge_end]
 				
 				# Add new child node
-				self.addNode(new_node, edge_name[len(pre_overlap):])
+				self.addNode(new_node, edge_start + insert_len-1, self.n)
 
 			else:
-				self.addNode(parent_node, edge_name)
+				# No insertion necessary, just append the new node.
+				self.addNode(parent_node, edge_start, self.n)
 
-	def insertPosition(self, suff, parent_node):
+	def insertPosition(self, start_index, parent_node):
+		'''Determine the location and method to insert a suffix into the suffix tree.'''
 		for child_node in parent_node.children:
-			edge = self.edges[(parent_node.number,child_node.number)]
-			if suff[:len(edge)] == edge:
-				return self.insertPosition(suff[len(edge):], child_node)
+			edge_start, edge_end = self.edges[(parent_node.number,child_node.number)]
+			if self.word[start_index:start_index+edge_end-edge_start] == self.word[edge_start:edge_end]:
+				return self.insertPosition(start_index+edge_end-edge_start, child_node)
 
-			elif edge[0] == suff[0]:
-				return child_node, suff,  True
+			elif self.word[edge_start] == self.word[start_index]:
+				return child_node, start_index,  True
 
-		return parent_node, suff, False	
+		return parent_node, start_index, False	
 
-	def addNode(self, parent_node, edge_name, child_node=None):
+	def addNode(self, parent_node, edge_start, edge_end, child_node=None):
+		'''Adds a node and the associated edge to the suffix tree.'''
 		# Create child node, if necessary
 		if child_node == None:
 			child_node = self.Node(parent_node, len(self.nodes))
@@ -83,6 +86,75 @@ class SuffixTree(object):
 		# Add child to parent
 		parent_node.addChild(child_node)
 		# Add edge to edge dict
-		self.edges[(parent_node.number,child_node.number)] = edge_name
-		# print self.edges
-		# print [(n.number, n.parent.number) for n in self.nodes if n.parent != None]
+		self.edges[(parent_node.number,child_node.number)] = [edge_start, edge_end]
+
+	def printEdges(self):
+		'''Returns the string representations of the edges.'''
+		return [self.word[i:j] for i,j in self.edges.values()]
+
+
+class Trie(object):
+	'''Constructs a trie.'''
+	def __init__(self, word=None):
+		self.nodes = [[self.Node('', 1)]]
+		self.edges = []
+		if word != None:
+			self.addWord(word)
+
+	class Node(object):
+		'''Trie node class.'''
+		def __init__(self, prefix, number):
+			self.prefix = prefix
+			self.number = number
+			self.depth = len(prefix)
+
+	class Edge(object):
+		'''Trie edge class.'''
+		def __init__(self, letter, par_node, chi_node):
+			self.letter = letter
+			self.parent_node = par_node
+			self.child_node = chi_node
+
+		def getInfo(self):
+			'''Return the edge information compactly.'''
+			return ' '.join(map(str,[self.parent_node,self.child_node,self.letter]))
+
+	def addWord(self, word):
+		'''Adds a word to the trie.'''
+		if type(word) == list:
+			for w in word:
+				self.addWord(w)
+		else:
+			parent = self.findParent(word)
+			for i in range(len(parent.prefix), len(word)):
+				new_node = self.Node(word[:i+1], self.nodeCount()+1)
+				self.edges.append(self.Edge(word[i], parent.number, self.nodeCount()+1))
+				self.insertNode(new_node)
+				parent = new_node
+
+	def insertNode(self, node):
+		'''Determine the location to insert the current node.'''
+		if node.depth > self.depth():
+			self.nodes.append([node])
+		else:
+			self.nodes[node.depth].append(node)
+
+	def depth(self):
+		'''Returns the depth of the trie.'''
+		return len(self.nodes) - 1
+
+	def nodeCount(self):
+		'''Returns the total number of nodes.'''
+		count = 0
+		for trie_depth in self.nodes:
+			count += len(trie_depth)
+		return count
+
+	def findParent(self, word):
+		'''Return the parent node of the word to be inserted.'''
+		for i in range(min(len(word), self.depth()), 0,-1):
+			for node in self.nodes[i]:
+				if word[:i] == node.prefix:
+					return node
+
+		return self.nodes[0][0]
