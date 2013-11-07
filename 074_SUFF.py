@@ -14,8 +14,7 @@ with open('data/rosalind_suff.txt') as input_data:
 	s = input_data.read().strip()
 
 # Most of the work is done in the Data Structures script.
-suff = SuffixTree()
-suff.addWord(s)
+suff = SuffixTree(s)
 
 with open('output/074_SUFF.txt', 'w') as output_data:
-	output_data.write('\n'.join(suff.edges.values()))
+	output_data.write('\n'.join(suff.printEdges()))
