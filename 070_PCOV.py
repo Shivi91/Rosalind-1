@@ -18,7 +18,7 @@ for kmer in k_mers:
 
 # Create the edges of the Graph.
 k = len(k_mers[0])
-edge = lambda elmmt: [elmt[0:k-1],elmt[1:k]]
+edge = lambda elmt: [elmt[0:k-1],elmt[1:k]]
 DBG_edges = [edge(elmt) for elmt in DBG_edge_elmts]
 
 # Construct the cyclic superstring from the edges. 
