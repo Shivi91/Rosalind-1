@@ -181,7 +181,7 @@ class Newick(object):
 
         	def __repr__(self):
 			'''Defines how Node instances are printed.'''
-			return ['Node_'+str(self.number)+'('+self.name+')', 'Node_'+str(self.number)+'()'][self.name=='Node_'+str(self.number)]
+			return ['Node_'+str(self.number)+'('+str(self.name)+')', str(self.name)+'()'][self.name=='Node_'+str(self.number)]
 
 		def add_child(self, child):
 			'''Add a child to the node.'''
@@ -253,7 +253,7 @@ class WeightedNewick(object):
 
         	def __repr__(self):
 			'''Defines how Node instances are printed.'''
-			return ['Node_'+str(self.number)+'('+self.name+')', 'Node_'+str(self.number)+'()'][self.name=='Node_'+str(self.number)]
+			return ['Node_'+str(self.number)+'('+str(self.name)+')', str(self.name)+'()'][self.name=='Node_'+str(self.number)]
 
 		def add_child(self, child):
 			'''Add a child to the node.'''
