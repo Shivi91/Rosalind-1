@@ -31,7 +31,7 @@ def CreateMismatches(swap_list):
 	if len(swap_list[0][1]) > 1:
 		for kmer, indicies in swap_list:
 			index = indicies[0]
-			for nuc in [nucleotide for nucleotide in nucleotides if nucleotide != kmer[index]]:
+			for nuc in filter(lambda n: n != kmer[index], nucleotides):
 				mismatch_list.append([swap(kmer, nuc, index), indicies[1:]])
 		
 		return CreateMismatches(mismatch_list)
@@ -39,7 +39,7 @@ def CreateMismatches(swap_list):
 	# Otherwise, on the final mismatch return the list of k-mers.
 	else:
 		for kmer, [index] in swap_list:
-			for nuc in [nuc for nuc in nucleotides if nuc != kmer[index]]:
+			for nuc in filter(lambda n: n != kmer[index], nucleotides):
 				mismatch_list.append(swap(kmer, nuc, index))
 		
 		return mismatch_list
