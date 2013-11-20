@@ -11,22 +11,28 @@ URL: https://beta.stepic.org/Bioinformatics-Algorithms-2/Sequencing-Antibiotics-
 
 from scripts import ProteinWeightDict
 
-with open('data/textbook/rosalind_2c.txt') as input_data:
-	peptide = input_data.read().strip()
+def cyclospectrum(peptide):
+	# Dictionary translating RNA to Protein
+	weight = ProteinWeightDict()
 
-# Dictionary translating RNA to Protein
-weight = ProteinWeightDict()
+	# Initialize as the mass 0 and the mass of the entire peptide.
+	cyclospec = [0, sum([int(weight[protein]) for protein in peptide])]
 
-# Initialize as the mass 0 and the mass of the entire peptide.
-cyclospectrum = [0, sum([int(weight[protein]) for protein in peptide])]
+	# Find the masses of the adjacent intermediary subpeptides
+	cyclospec += [sum([int(weight[protein]) for protein in (peptide*2)[j:j+i]]) for i in xrange(1,len(peptide)) for j in xrange(len(peptide))]
 
-# Find the masses of the adjacent intermediary subpeptides
-cyclospectrum += [sum([int(weight[protein]) for protein in (peptide*2)[j:j+i]]) for i in xrange(1,len(peptide)) for j in xrange(len(peptide))]
+	# Sort the list in ascending order and convert to strings.
+	cyclospec = map(str,sorted(cyclospec))
 
-# Sort the list in ascending order and convert to strings.
-cyclospectrum = map(str,sorted(cyclospectrum))
+	return cyclospec
 
-# Print and save the answer.
-print ' '.join(cyclospectrum)
-with open('output/textbook/Textbook_02C.txt', 'w') as output_data:
-	output_data.write(' '.join(cyclospectrum))
+if __name__ == '__main__':
+	with open('data/textbook/rosalind_2c.txt') as input_data:
+		peptide = input_data.read().strip()
+
+	cyclospec = cyclospectrum(peptide)
+
+	# Print and save the answer.
+	print ' '.join(cyclospec)
+	with open('output/textbook/Textbook_02C.txt', 'w') as output_data:
+		output_data.write(' '.join(cyclospec))
