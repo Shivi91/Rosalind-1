@@ -39,9 +39,6 @@ if __name__ == '__main__':
 
 	with open('data/textbook/rosalind_2e.txt') as input_data:
 		n, spec = [int(line.strip()) if i==0 else map(int,line.strip().split()) for i, line in enumerate(input_data.readlines())]
-
-	# with open('D:/test.txt') as input_data:
-		# n, spec = [int(line.strip()) if i==0 else map(int,line.strip().split()) for i, line in enumerate(input_data.readlines())]
 	
 	# Create the protein weight dictionary.
 	weight = ProteinWeightDict()
